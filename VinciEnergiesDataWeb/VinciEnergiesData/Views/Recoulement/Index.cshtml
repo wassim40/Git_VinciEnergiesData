@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<h1 class="display-4 text-success">Recoulement</h1>
+
+<div class="container p-3">
+    <br />
+    <br />
+    <div class="row pt-4">
+
+        <div class="col-6 ">
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("IndexB2B", "DossierTechnique")'">
+                    B2B
+                </button>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="col-6">
+        </div>
+        <div class="col-6 ">
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("IndexFTTS", "DossierTechnique")'">
+                    FTTS
+                </button>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="col-6">
+            <h2 class="text primary"></h2>
+        </div>
+        <div class="col-6 ">
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("IndexMaintenance", "DossierTechnique")'">
+                    Maintenance
+                </button>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
