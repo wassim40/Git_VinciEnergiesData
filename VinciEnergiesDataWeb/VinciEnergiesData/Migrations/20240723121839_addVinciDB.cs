@@ -13,7 +13,9 @@ namespace VinciEnergiesData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdminKey = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AdminKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Admin0 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdminKey0 = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

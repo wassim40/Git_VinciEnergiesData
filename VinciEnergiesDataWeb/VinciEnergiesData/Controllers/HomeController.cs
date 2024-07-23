@@ -23,6 +23,16 @@ namespace VinciEnergiesData.Controllers
             return View();
         }
 
+        public IActionResult Index0()
+        {
+            return View();
+        }
+
+        public IActionResult Index1()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -40,5 +50,7 @@ namespace VinciEnergiesData.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
 }

@@ -1,0 +1,42 @@
+﻿@model VMLogin
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Ajoutez Employe</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PassWord"></label>
+            <input asp-for="PassWord" class="form-control" />
+            <span asp-validation-for="PassWord" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Administrateur"></label>
+            <input asp-for="Administrateur" class="form-control" />
+            <span asp-validation-for="Administrateur" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AdminKey"></label>
+            <input asp-for="AdminKey" class="form-control" />
+            <span asp-validation-for="AdminKey" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Ajoutez</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary" style="width=150px">
+            Annuler
+        </a>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

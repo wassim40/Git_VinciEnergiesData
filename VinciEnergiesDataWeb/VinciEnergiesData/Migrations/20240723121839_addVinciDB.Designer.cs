@@ -9,7 +9,7 @@ using VinciEnergiesData.Data;
 namespace VinciEnergiesData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240723094539_addVinciDB")]
+    [Migration("20240723121839_addVinciDB")]
     partial class addVinciDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,15 @@ namespace VinciEnergiesData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Admin0")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AdminKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdminKey0")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
