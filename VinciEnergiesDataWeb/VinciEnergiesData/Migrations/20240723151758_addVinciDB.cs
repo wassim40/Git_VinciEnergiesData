@@ -29,8 +29,9 @@ namespace VinciEnergiesData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     codeSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    genre = table.Column<int>(type: "int", nullable: false),
-                    folder = table.Column<int>(type: "int", nullable: false)
+                    folder = table.Column<int>(type: "int", nullable: true),
+                    Arbre = table.Column<int>(type: "int", nullable: true),
+                    PereId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,8 +61,8 @@ namespace VinciEnergiesData.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    annee = table.Column<int>(type: "int", nullable: false),
-                    ville = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    annee = table.Column<int>(type: "int", nullable: true),
+                    ville = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dossierId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

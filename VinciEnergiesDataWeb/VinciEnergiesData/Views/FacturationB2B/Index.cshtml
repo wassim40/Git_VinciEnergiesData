@@ -1,7 +1,58 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index FacturationB2B</h1>
+<h1 class="display-4 text-success">FacturationFTTS</h1>
 
+<div class="container p-3">
+    <br />
+    <br />
+    <div class="row pt-4">
+
+        <div class="col-6 ">
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("Index_PVR_BC_B2B", "Facturation")'">
+                    PVR_BC
+                </button>
+            </div>
+            <br />
+            <br />
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("Index_PVR_BC_FTTS", "Facturation")'">
+                    PT
+                </button>
+            </div>
+            <br />
+            <br />
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("Index_PVR_BC_FTTS", "Facturation")'">
+                    PartageGC
+                </button>
+            </div>
+            <br />
+            <br />
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("Index_PVR_BC_FTTS", "Facturation")'">
+                    PartageFON
+                </button>
+            </div>
+            <br />
+            <br />
+            <div class="d-grid gap-2">
+                <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("Index_PVR_BC_FTTS", "Facturation")'">
+                    NRA
+                </button>
+            </div>
+            <br />
+            <br />
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Client" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; Ajoutez Dossier
+            </a>
+            <a asp-controller="Client" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; Ajoutez fichier
+            </a>
+        </div>
+    </div>
+</div>

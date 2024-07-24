@@ -4,9 +4,9 @@
     {
         DossierTechnique,
         Recoulement,
-        CheckList,
         Facturation,
         BilanOptique,
-        SituationCable
+        SituationCable,
+        Other
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace VinciEnergiesData.Controllers
 {
     [Authorize]
-    public class FacturationFTTHController : Controller
+    public class Facturation_PVR_BC_B2BController : Controller
     {
         public IActionResult Index()
         {

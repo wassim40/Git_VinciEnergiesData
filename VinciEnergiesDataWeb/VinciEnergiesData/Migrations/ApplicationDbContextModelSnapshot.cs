@@ -53,6 +53,12 @@ namespace VinciEnergiesData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Arbre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PereId")
+                        .HasColumnType("int");
+
                     b.Property<string>("codeSite")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
