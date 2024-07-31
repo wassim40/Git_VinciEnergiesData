@@ -53,11 +53,9 @@ namespace VinciEnergiesData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Arbre")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PereId")
-                        .HasColumnType("int");
+                    b.Property<string>("annee")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("codeSite")
                         .IsRequired()
@@ -68,6 +66,10 @@ namespace VinciEnergiesData.Migrations
 
                     b.Property<int>("genre")
                         .HasColumnType("int");
+
+                    b.Property<string>("ville")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -81,19 +83,27 @@ namespace VinciEnergiesData.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("annee")
-                        .HasColumnType("int");
+                    b.Property<string>("annee")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("dossierId")
-                        .HasColumnType("int");
+                    b.Property<string>("dossier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ville")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("dossierId");
 
                     b.ToTable("fichiers");
                 });
@@ -127,17 +137,6 @@ namespace VinciEnergiesData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("vmLogins");
-                });
-
-            modelBuilder.Entity("VinciEnergiesData.Models.Fichier", b =>
-                {
-                    b.HasOne("VinciEnergiesData.Models.Dossier", "dossier")
-                        .WithMany()
-                        .HasForeignKey("dossierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("dossier");
                 });
 #pragma warning restore 612, 618
         }

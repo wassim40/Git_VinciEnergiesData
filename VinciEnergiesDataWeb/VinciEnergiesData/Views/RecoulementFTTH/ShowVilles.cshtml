@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "ShowVilles";
+}
+@model List<string>
+
+<h1>ShowVilles</h1>
+
+<div class="col-6 text-end">
+    <a asp-controller="Home" asp-action="CreateFolder" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> &nbsp; Ajoutez un dossier
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var ville in Model)
+        {
+
+            <div class="col-6 ">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("ShowFiles", "RecoulementFTTH", new { city = ville})'">
+                        @ville
+                    </button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+
+        }
+    </div>
+
+</div>

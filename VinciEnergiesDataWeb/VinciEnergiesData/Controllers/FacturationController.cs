@@ -15,22 +15,14 @@ namespace VinciEnergiesData.Controllers
 
         public IActionResult IndexB2B()
         {
-            return RedirectToAction("Index", "FacturationB2B");
+            return View();
         }
 
         public IActionResult IndexFTTS()
         {
-            return RedirectToAction("Index", "FacturationFTTS");
+            return View();
         }
 
-        public IActionResult Index_PVR_BC_B2B()
-        {
-            return RedirectToAction("Index", "Facturation_PVR_BC_B2B");
-        }
 
-        public IActionResult Index_PVR_BC_FTTS()
-        {
-            return RedirectToAction("Index", "Facturation_PVR_BC_FTTS");
-        }
     }
 }

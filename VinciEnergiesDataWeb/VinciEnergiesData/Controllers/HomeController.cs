@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using VinciEnergiesData.Data;
 
 namespace VinciEnergiesData.Controllers
 {
@@ -13,10 +14,16 @@ namespace VinciEnergiesData.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _db;
+        private readonly string wwwrootDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+        public HomeController(ApplicationDbContext db, ILogger<HomeController> logger)
         {
+            _db = db;
             _logger = logger;
+
         }
+
 
         public IActionResult Index()
         {
@@ -51,6 +58,26 @@ namespace VinciEnergiesData.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       
+        //GET
+        public IActionResult CreateFolder()
+        {
+            return View();
+        }
+
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateFolder(Dossier obj)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _db.dossiers.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(obj);
+        }
     }
 }

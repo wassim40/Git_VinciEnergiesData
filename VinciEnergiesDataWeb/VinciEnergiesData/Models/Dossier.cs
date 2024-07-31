@@ -8,13 +8,12 @@ namespace VinciEnergiesData.Models
         [Key]
         public int Id { get; set; }
         public string codeSite { get; set; }
+        [Display(Name = "Annee")]
+        [RegularExpression(@"\d{4}", ErrorMessage = "Please enter a valid year (e.g., 2024).")]
+        public string annee { get; set; }
+        public string ville { get; set; }
         public FolderType folder { get; set; }
-        public int Arbre { get; set; }
-        public int PereId { get; set; }
-
-        public Dossier()
-        {
-            this.folder = FolderType.Other;
-        }
+        public GenreFolder genre { get; set; }
+            
     }
 }
