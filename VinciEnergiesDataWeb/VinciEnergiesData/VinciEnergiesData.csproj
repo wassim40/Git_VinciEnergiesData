@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\RecoulementFTTH\ShowFiles.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="Views\RecoulementFTTH\ShowFolders.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -52,13 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\RecoulementFTTH\Create.cshtml" />
     <_ContentIncludedByDefault Remove="Views\RecoulementFTTH\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\RecoulementFTTH\ShowVilles.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\RecoulementFTTH\Create.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

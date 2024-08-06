@@ -24,6 +24,11 @@ namespace VinciEnergiesData.Controllers
             return RedirectToAction("Index", "RecoulementFTTS");
         }
 
+        public IActionResult IndexFTTH()
+        {
+            return RedirectToAction("Index", "RecoulementFTTH");
+        }
+
         public IActionResult IndexMaintenance()
         {
             return RedirectToAction("Index", "RecoulementMaintenance");

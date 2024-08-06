@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "CreateFile";
+}
+
+<h1>CreateFile</h1>
+
+@model VinciEnergiesData.FileViewModel
+
+<div class="container">
+    <h2>Files in @Model.City</h2>
+    <div class="row">
+        @foreach (var imagePath in Model.Files)
+        {
+            <div class="col-md-3">
+                <div class="alert alert-success" role="alert">
+                    <a href="/Home/DownloadFile/?filePath=@imagePath">
+                        <img src="~/@imagePath" alt=@imagePath.ToString() height="100px" width="205px" />
+                    </a>
+                </div>
+            </div>
+            <br />
+            <br />
+        }
+    </div>
+</div>
+
+<div class="container">
+    @using (Html.BeginForm("CreateFile", "Facturation_B2B_PT", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="myFile">Upload File</label>
+                <input type="file" class="form-control" name="myFile" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" name="city" placeholder="Enter city" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" name="year" placeholder="Enter year" />
+            </div>
+             <div class="form-group col-md-4">
+                <label for="dossier">dossier</label>
+                <input type="text" class="form-control" name="dossier" value="@Model.City" placeholder="" />
+            </div>
+            <div class="form-group col-md-12">
+                <input type="submit" class="btn btn-primary" name="Upload" value="Upload" />
+            </div>
+        </div>
+    }
+</div>

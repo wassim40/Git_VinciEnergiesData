@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "ShowVilles";
 }
-@model List<string>
+@model ShowVillesViewModel
 
-<h1>ShowVilles</h1>
+<h1>Villes for @Model.Year</h1>
 
 <div class="col-6 text-end">
     <a asp-controller="Home" asp-action="CreateFolder" class="btn btn-success">
@@ -14,11 +14,11 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var ville in Model)
+        @foreach (var ville in Model.Villes)
         {
             <div class="col-6 ">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("ShowFiles", "DT_Maintenance", new { city = ville})'">
+                    <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("ShowFolders", "DT_Maintenance", new { city = ville, year = Model.Year})'">
                         @ville
                     </button>
                 </div>

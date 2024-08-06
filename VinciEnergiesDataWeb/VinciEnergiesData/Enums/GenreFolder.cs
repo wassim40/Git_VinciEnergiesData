@@ -15,6 +15,8 @@
         B2B_PartageGC,
         B2B_PartageFON,
         B2B_NRA,
-        B2B_PVR_BC
+        B2B_PVR_BC,
+        SC_FTTH,
+        SC_FTTS
     }
 }

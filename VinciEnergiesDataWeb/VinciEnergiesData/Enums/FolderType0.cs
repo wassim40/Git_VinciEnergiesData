@@ -4,6 +4,5 @@
     {
         DossierTechnique,
         Recoulement,
-        Other
     }
 }

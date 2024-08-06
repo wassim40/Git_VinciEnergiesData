@@ -73,11 +73,37 @@ namespace VinciEnergiesData.Controllers
 
             if (ModelState.IsValid)
             {
+                obj.ville = obj.ville.ToUpper();
                 _db.dossiers.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
             return View(obj);
+        }
+
+
+        public async Task<IActionResult> DownloadFile(string filePath)
+        {
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", filePath);
+
+            var memory = new MemoryStream();
+
+            using (var stream = new FileStream(path, FileMode.Open))
+
+            {
+
+                await stream.CopyToAsync(memory);
+
+            }
+
+            memory.Position = 0;
+
+            var contentType = "APPLICATION/octet-stream";
+
+            var fileName = Path.GetFileName(path);
+
+            return File(memory, contentType, fileName);
         }
     }
 }

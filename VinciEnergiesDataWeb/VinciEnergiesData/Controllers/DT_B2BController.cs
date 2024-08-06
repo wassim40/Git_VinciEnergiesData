@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using VinciEnergiesData.Data;
 using VinciEnergiesData.Models;
 
@@ -16,29 +18,7 @@ namespace VinciEnergiesData.Controllers
             _db = db;
         }
 
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(IFormFile myFile)
-        //{
-        //    if (myFile != null)
-        //    {
-        //        var path = Path.Combine(wwwrootDirectory, myFile.FileName);
-        //        using (var stream = new FileStream(path, FileMode.Create))
-        //        {
-        //            await myFile.CopyToAsync(stream);
-        //        }
-        //        return RedirectToAction("Index");
-        //    }
-
-
-        //    return View();
-        //}
-
-
+       
         public IActionResult Index()
         {
             return RedirectToAction("ShowYears");
@@ -95,18 +75,73 @@ namespace VinciEnergiesData.Controllers
             }
             return View(folders);
         }
-        public IActionResult ShowFiles(string city)
+
+        public IActionResult CreateFile(string fold)
         {
             var filesTable = _db.fichiers.ToList();
             List<string> files = new List<string>();
             foreach (var i in filesTable)
             {
-                if (i.dossier == city)
+                if (i.dossier == fold)
                 {
                     files.Add(i.nom);
                 }
             }
-            return View(files);
+            var viewModel = new FileViewModel
+            {
+                Files = files,
+                City = fold
+            };
+            return View(viewModel);
         }
+
+
+        [HttpPost]
+        public IActionResult CreateFile(IFormFile myFile, string city, string year, string dossier)
+        {
+            
+                if (myFile != null && myFile.Length > 0)
+                {
+                    var fileName = Path.GetFileName(myFile.FileName);
+                    var fileExtension = Path.GetExtension(myFile.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        myFile.CopyTo(stream);
+                    }
+
+                    var fichier = new Fichier
+                    {
+                        nom = fileName,
+                        extension = fileExtension,
+                        dossier = dossier, // Assuming you save files in the "uploads" folder
+                        ville = city.ToUpper(),
+                        annee = year
+                    };
+
+                    _db.fichiers.Add(fichier);
+                    _db.SaveChanges();
+
+                var filesTable = _db.fichiers.ToList();
+                List<string> files = new List<string>();
+                foreach (var i in filesTable)
+                {
+                    if (i.dossier == dossier)
+                    {
+                        files.Add(i.nom);
+                    }
+                }
+                var viewModel = new FileViewModel
+                {
+                    Files = files,
+                    City = dossier
+                };
+                return View(viewModel);
+            }
+            return View();
+        }
+
+       
     }
 }

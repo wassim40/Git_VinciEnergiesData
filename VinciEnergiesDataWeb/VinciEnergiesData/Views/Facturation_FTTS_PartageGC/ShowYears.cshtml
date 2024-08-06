@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "ShowYears";
+}
+
+
+@model List<string>
+
+<h1>Les années</h1>
+
+<div class="col-6 text-end">
+    <a asp-controller="Facturation_FTTS_PartageGC" asp-action="CreateFile" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> &nbsp; Ajoutez un fichier
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var ans in Model)
+        {
+            <div class="col-6 ">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-lg btn-info" type="button" onclick="location.href='@Url.Action("ShowVilles", "Facturation_FTTS_PartageGC", new { year = ans})'">
+                        @ans
+                    </button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+
+        }
+    </div>
+
+</div>
