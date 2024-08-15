@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VinciEnergiesData.Data;
+using VinciEnergiesData.Enums;
 using VinciEnergiesData.Models;
 
 namespace VinciEnergiesData.Controllers
@@ -104,7 +105,7 @@ namespace VinciEnergiesData.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public IActionResult CreateFile(IFormFile myFile, string city, string year, string dossier)
+        public IActionResult CreateFile(IFormFile myFile, string dossier)
         {
             if (ModelState.IsValid)
             {
@@ -124,32 +125,62 @@ namespace VinciEnergiesData.Controllers
                         nom = fileName,
                         extension = fileExtension,
                         dossier = dossier, // Assuming you save files in the "uploads" folder
-                        ville = city.ToUpper(),
-                        annee = year
                     };
 
                     _db.fichiers.Add(fichier);
                     _db.SaveChanges();
 
-                    var filesTable = _db.fichiers.ToList();
-                    List<string> files = new List<string>();
-                    foreach (var i in filesTable)
-                    {
-                        if (i.dossier == dossier)
-                        {
-                            files.Add(i.nom);
-                        }
-                    }
-                    var viewModel = new FileViewModel
-                    {
-                        Files = files,
-                        City = dossier
-                    };
-                    return View(viewModel);
+
                 }
             }
 
-            return View();
+            if (myFile == null)
+            {
+                ModelState.AddModelError("CustomError", "The file field is required.");
+            }
+
+            var filesTable = _db.fichiers.ToList();
+            List<string> files = new List<string>();
+            foreach (var i in filesTable)
+            {
+                if (i.dossier == dossier)
+                {
+                    files.Add(i.nom);
+                }
+            }
+            var viewModel = new FileViewModel
+            {
+                Files = files,
+                City = dossier
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFile(string filePath, string city)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                var fullPath = Path.Combine(wwwrootDirectory, filePath);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+
+                    // Optionally, add a message or redirect to indicate success
+                    var files = _db.fichiers.ToList();
+                    foreach (var fichier in files)
+                    {
+                        if (fichier.nom == filePath)
+                        {
+                            _db.fichiers.Remove(fichier);
+                            _db.SaveChanges();
+                        }
+                    }
+                }
+            }
+
+            // Adjust the redirect to pass the city back if necessary
+            return RedirectToAction("CreateFile", new { fold = city });
         }
     }
 }

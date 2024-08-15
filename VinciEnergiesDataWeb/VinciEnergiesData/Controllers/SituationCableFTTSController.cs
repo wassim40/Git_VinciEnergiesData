@@ -68,11 +68,53 @@ namespace VinciEnergiesData.Controllers
                     _db.fichiers.Add(fichier);
                     _db.SaveChanges();
 
-                    return RedirectToAction("Index"); // or wherever you want to redirect after the upload
                 }
             }
 
-            return View();
+            if (myFile == null)
+            {
+                ModelState.AddModelError("CustomError", "The file field is required.");
+            }
+
+            var filesTable0 = _db.fichiers.ToList();
+            List<string> files0 = new List<string>();
+            foreach (var i in filesTable0)
+            {
+                if (i.dossier == city)
+                {
+                    files0.Add(i.nom);
+                }
+            }
+            var viewModel0 = new FileViewModel
+            {
+                Files = files0,
+                City = Enums.GenreFolder.SC_FTTS.ToString()
+            };
+            return View(viewModel0);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFile(string filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                var fullPath = Path.Combine(wwwrootDirectory, filePath);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                    // Optionally, add a message or redirect to indicate success
+                    var files = _db.fichiers.ToList();
+                    foreach (var fichier in files)
+                    {
+                        if (fichier.nom == filePath)
+                        {
+                            _db.fichiers.Remove(fichier);
+                            _db.SaveChanges();
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("CreateFile"); // Adjust the redirect as needed
         }
     }
 }

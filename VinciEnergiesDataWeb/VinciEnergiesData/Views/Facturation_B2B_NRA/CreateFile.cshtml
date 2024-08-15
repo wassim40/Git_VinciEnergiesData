@@ -10,17 +10,24 @@
     <h2>Files in @Model.City</h2>
     <div class="row">
         @foreach (var imagePath in Model.Files)
-        {
-            <div class="col-md-3">
-                <div class="alert alert-success" role="alert">
-                    <a href="/Home/DownloadFile/?filePath=@imagePath">
-                        <img src="~/@imagePath" alt=@imagePath.ToString() height="100px" width="205px" />
-                    </a>
-                </div>
+    {
+        <div class="col-md-3 mb-4">
+            <div class="d-flex justify-content-center">
+                <form asp-action="DeleteFile" method="post" class="d-inline">
+                    <input type="hidden" name="filePath" value="@imagePath" />
+                    <input type="hidden" name="city" value="@Model.City" />
+                        <input type="hidden" name="city" value="@Model.Year" />
+
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+                <a href="/Home/DownloadFile/?filePath=@imagePath" class="btn btn-success w-100 ms-2">
+                    <i class="bi bi-download"></i> @imagePath
+                </a>
             </div>
-            <br />
-            <br />
-        }   
+        </div>
+    }
     </div>
 </div>
 
@@ -28,21 +35,27 @@
     @using (Html.BeginForm("CreateFile", "Facturation_B2B_NRA", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
+
             <div class="form-group col-md-4">
                 <label for="myFile">Upload File</label>
                 <input type="file" class="form-control" name="myFile" />
+                <span class="text-danger">@ViewData["FileError"]</span> 
             </div>
             <div class="form-group col-md-4">
                 <label for="city">City</label>
-                <input type="text" class="form-control" name="city" placeholder="Enter city" />
+                <input type="text" class="form-control" name="city" value="@Model.City" placeholder ="Enter city" />
+                <span asp-validation-for="City" class="text-danger"></span>
+                <span class="text-danger">@ViewData["CustomError"]</span>
+
             </div>
             <div class="form-group col-md-4">
                 <label for="year">Year</label>
-                <input type="text" class="form-control" name="year" placeholder="Enter year" />
+                <input type="text" class="form-control" name="year" value="@Model.Year" placeholder="Enter year" />
+                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
              <div class="form-group col-md-4">
                 <label for="dossier">dossier</label>
-                <input type="text" class="form-control" name="dossier" value="@Model.City" placeholder="" />
+                <input type="text" class="form-control" name="dossier" value="@VinciEnergiesData.Enums.GenreFolder.B2B_NRA.ToString()" readonly />
             </div>
             <div class="form-group col-md-12">
                 <input type="submit" class="btn btn-primary" name="Upload" value="Upload" />
@@ -50,3 +63,8 @@
         </div>
     }
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

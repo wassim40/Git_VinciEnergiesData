@@ -11,15 +11,20 @@
     <div class="row">
         @foreach (var imagePath in Model.Files)
         {
-            <div class="col-md-3">
-                <div class="alert alert-success" role="alert">
-                    <a href="/Home/DownloadFile/?filePath=@imagePath">
-                        <img src="~/@imagePath" alt=@imagePath.ToString() height="100px" width="205px" />
+            <div class="col-md-3 mb-4">
+                <div class="d-flex justify-content-center">
+                    <form asp-action="DeleteFile" method="post" class="d-inline">
+                        <input type="hidden" name="filePath" value="@imagePath" />
+                        <input type="hidden" name="city" value="@Model.City" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                    <a href="/Home/DownloadFile/?filePath=@imagePath" class="btn btn-success w-100 ms-2">
+                        <i class="bi bi-download"></i> @imagePath
                     </a>
                 </div>
             </div>
-            <br />
-            <br />
         }
     </div>
 </div>
@@ -32,17 +37,9 @@
                 <label for="myFile">Upload File</label>
                 <input type="file" class="form-control" name="myFile" />
             </div>
-            <div class="form-group col-md-4">
-                <label for="city">City</label>
-                <input type="text" class="form-control" name="city" placeholder="Enter city" />
-            </div>
-            <div class="form-group col-md-4">
-                <label for="year">Year</label>
-                <input type="text" class="form-control" name="year" placeholder="Enter year" />
-            </div>
              <div class="form-group col-md-4">
                 <label for="dossier">dossier</label>
-                <input type="text" class="form-control" name="dossier" value="@Model.City" placeholder="" />
+                <input type="text" class="form-control" name="dossier" value="@Model.City" readonly />
             </div>
             <div class="form-group col-md-12">
                 <input type="submit" class="btn btn-primary" name="Upload" value="Upload" />

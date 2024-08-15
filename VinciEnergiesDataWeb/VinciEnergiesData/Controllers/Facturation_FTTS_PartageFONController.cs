@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VinciEnergiesData.Data;
+using VinciEnergiesData.Enums;
 using VinciEnergiesData.Models;
 
 namespace VinciEnergiesData.Controllers
@@ -102,11 +103,55 @@ namespace VinciEnergiesData.Controllers
                     _db.fichiers.Add(fichier);
                     _db.SaveChanges();
 
-                    return RedirectToAction("Index"); // or wherever you want to redirect after the upload
+                }
+            }
+            if (myFile == null)
+            {
+                ModelState.AddModelError("CustomError", "The file field is required.");
+            }
+
+            var filesTable0 = _db.fichiers.ToList();
+            List<string> files0 = new List<string>();
+            foreach (var i in filesTable0)
+            {
+                if (i.ville == city && i.annee == year && i.dossier == GenreFolder.FTTS_PartageFON.ToString())
+                {
+                    files0.Add(i.nom);
+                }
+            }
+            var viewModel0 = new FileViewModel
+            {
+                Files = files0,
+                City = Enums.GenreFolder.FTTS_PartageFON.ToString()
+            };
+            return View(viewModel0);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteFile(string filePath, string city, string year)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                var fullPath = Path.Combine(wwwrootDirectory, filePath);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+
+                    // Optionally, add a message or redirect to indicate success
+                    var files = _db.fichiers.ToList();
+                    foreach (var fichier in files)
+                    {
+                        if (fichier.nom == filePath)
+                        {
+                            _db.fichiers.Remove(fichier);
+                            _db.SaveChanges();
+                        }
+                    }
                 }
             }
 
-            return View();
+            // Adjust the redirect to pass the city back if necessary
+            return RedirectToAction("CreateFile", new { city = city, year = year });
         }
     }
 

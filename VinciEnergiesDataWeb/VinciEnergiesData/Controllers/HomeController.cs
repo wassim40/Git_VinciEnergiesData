@@ -73,6 +73,7 @@ namespace VinciEnergiesData.Controllers
 
             if (ModelState.IsValid)
             {
+
                 obj.ville = obj.ville.ToUpper();
                 _db.dossiers.Add(obj);
                 _db.SaveChanges();

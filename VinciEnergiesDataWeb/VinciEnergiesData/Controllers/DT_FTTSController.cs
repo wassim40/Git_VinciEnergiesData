@@ -91,54 +91,82 @@ namespace VinciEnergiesData.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateFile(IFormFile myFile, string city, string year, string dossier)
+        public IActionResult CreateFile(IFormFile myFile, string dossier)
         {
-
-            if (myFile != null && myFile.Length > 0)
+            if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(myFile.FileName);
-                var fileExtension = Path.GetExtension(myFile.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                if (myFile != null && myFile.Length > 0)
                 {
-                    myFile.CopyTo(stream);
-                }
+                    var fileName = Path.GetFileName(myFile.FileName);
+                    var fileExtension = Path.GetExtension(myFile.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", fileName);
 
-                var fichier = new Fichier
-                {
-                    nom = fileName,
-                    extension = fileExtension,
-                    dossier = dossier, // Assuming you save files in the "uploads" folder
-                    ville = city.ToUpper(),
-                    annee = year
-                };
-
-                _db.fichiers.Add(fichier);
-                _db.SaveChanges();
-
-                var filesTable = _db.fichiers.ToList();
-                List<string> files = new List<string>();
-                foreach (var i in filesTable)
-                {
-                    if (i.dossier == dossier)
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        files.Add(i.nom);
+                        myFile.CopyTo(stream);
                     }
+
+                    var fichier = new Fichier
+                    {
+                        nom = fileName,
+                        extension = fileExtension,
+                        dossier = dossier, // Assuming you save files in the "uploads" folder
+
+                    };
+                    _db.fichiers.Add(fichier);
+                    _db.SaveChanges();
+
+
                 }
-                var viewModel = new FileViewModel
-                {
-                    Files = files,
-                    City = dossier
-                };
-                return View(viewModel);
             }
-            return View();
+
+            if (myFile == null)
+            {
+                ModelState.AddModelError("CustomError", "The file field is required.");
+            }
+
+            var filesTable = _db.fichiers.ToList();
+            List<string> files = new List<string>();
+            foreach (var i in filesTable)
+            {
+                if (i.dossier == dossier)
+                {
+                    files.Add(i.nom);
+                }
+            }
+            var viewModel = new FileViewModel
+            {
+                Files = files,
+                City = dossier
+            };
+            return View(viewModel);
         }
 
+        [HttpPost]
+        public IActionResult DeleteFile(string filePath, string city)
+        {
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                var fullPath = Path.Combine(wwwrootDirectory, filePath);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
 
-      
-       
+                    // Optionally, add a message or redirect to indicate success
+                    var files = _db.fichiers.ToList();
+                    foreach (var fichier in files)
+                    {
+                        if (fichier.nom == filePath)
+                        {
+                            _db.fichiers.Remove(fichier);
+                            _db.SaveChanges();
+                        }
+                    }
+                }
+            }
 
+            // Adjust the redirect to pass the city back if necessary
+            return RedirectToAction("CreateFile", new { fold = city });
+        }
     }
 }
