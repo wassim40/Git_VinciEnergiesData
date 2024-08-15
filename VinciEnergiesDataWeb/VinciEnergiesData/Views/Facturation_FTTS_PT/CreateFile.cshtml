@@ -16,7 +16,7 @@
                     <form asp-action="DeleteFile" method="post" class="d-inline">
                         <input type="hidden" name="filePath" value="@imagePath" />
                         <input type="hidden" name="city" value="@Model.City" />
-                        <input type="hidden" name="city" value="@Model.Year" />
+                        <input type="hidden" name="year" value="@Model.Year" />
                         <button type="submit" class="btn btn-danger">
                             <i class="bi bi-trash"></i> Delete
                         </button>
@@ -40,15 +40,15 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="city">City</label>
-                <input type="text" class="form-control" name="city" placeholder="Enter city" />
+                <input type="text" class="form-control" name="city" value="@Model.City" placeholder="Enter city" />
             </div>
             <div class="form-group col-md-4">
                 <label for="year">Year</label>
-                <input type="text" class="form-control" name="year" placeholder="Enter year" />
+                <input type="text" class="form-control" name="year" value="@Model.Year" placeholder="Enter year" />
             </div>
              <div class="form-group col-md-4">
                 <label for="dossier">dossier</label>
-                <input type="text" class="form-control" name="dossier" value="@Model.City" readonly />
+                <input type="text" class="form-control" name="dossier" value="@VinciEnergiesData.Enums.GenreFolder.FTTS_PT.ToString()" readonly />
             </div>
             <div class="form-group col-md-12">
                 <input type="submit" class="btn btn-primary" name="Upload" value="Upload" />

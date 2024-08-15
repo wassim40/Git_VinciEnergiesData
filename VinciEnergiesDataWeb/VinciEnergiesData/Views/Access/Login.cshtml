@@ -17,30 +17,36 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card mt-5">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="text-center">Login</h3>
+            <div class="col-md-6 col-lg-4">
+                <div class="card mt-5 shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="mb-0">Login</h3>
                     </div>
                     <div class="card-body">
                         <form asp-controller="Access" asp-action="Login" method="post">
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="Email">Email</label>
-                                <input type="email" class="form-control" id="Email" placeholder="Enter email" asp-for="Email" />
+                                <div class="input-group">
+                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control" id="Email" placeholder="Enter email" asp-for="Email" />
+                                </div>
                             </div>
-                            <div class="form-group mt-3">
+                            <div class="form-group mb-3">
                                 <label for="PassWord">Password</label>
-                                <input type="password" class="form-control" id="PassWord" placeholder="Enter password" asp-for="PassWord" />
+                                <div class="input-group">
+                                    <span class="input-group-text bg-primary text-white"><i class="bi bi-lock"></i></span>
+                                    <input type="password" class="form-control" id="PassWord" placeholder="Enter password" asp-for="PassWord" />
+                                </div>
                             </div>
-                            <div class="form-check mt-3">
+                            <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="KeepLoggedIn" asp-for="KeepLoggedIn" />
                                 <label class="form-check-label" for="KeepLoggedIn">Keep me logged in</label>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 mt-4">Login</button>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
 
                             @if (ViewData["ValidateMessage"] != null)
                             {
-                                <div class="alert alert-danger mt-3" role="alert">
+                                <div class="alert alert-danger mt-3 text-center" role="alert">
                                     @ViewData["ValidateMessage"]
                                 </div>
                             }

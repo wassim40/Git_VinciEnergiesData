@@ -41,7 +41,7 @@ namespace VinciEnergiesData.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public IActionResult CreateFile(IFormFile myFile, string city, string year, string dossier)
+        public IActionResult CreateFile(IFormFile myFile, string dossier)
         {
             if (ModelState.IsValid)
             {
@@ -61,8 +61,7 @@ namespace VinciEnergiesData.Controllers
                         nom = fileName,
                         extension = fileExtension,
                         dossier = dossier, // Assuming you save files in the "uploads" folder
-                        ville = city.ToUpper(),
-                        annee = year
+                        
                     };
 
                     _db.fichiers.Add(fichier);
@@ -80,7 +79,7 @@ namespace VinciEnergiesData.Controllers
             List<string> files0 = new List<string>();
             foreach (var i in filesTable0)
             {
-                if (i.dossier == city)
+                if (i.dossier == dossier)
                 {
                     files0.Add(i.nom);
                 }

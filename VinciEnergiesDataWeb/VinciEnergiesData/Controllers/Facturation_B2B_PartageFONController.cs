@@ -70,8 +70,10 @@ namespace VinciEnergiesData.Controllers
             var viewModel = new FileViewModel
             {
                 Files = files,
-                City = Enums.GenreFolder.B2B_PartageFON.ToString()
+                City = city,
+                Year = year
             };
+
 
             return View(viewModel);
         }
@@ -122,7 +124,8 @@ namespace VinciEnergiesData.Controllers
             var viewModel0 = new FileViewModel
             {
                 Files = files0,
-                City = Enums.GenreFolder.B2B_PartageFON.ToString()
+                City = city,
+                Year = year
             };
             return View(viewModel0);
         }

@@ -53,7 +53,8 @@ namespace VinciEnergiesData.Controllers
             var viewModel = new FileViewModel
             {
                 Files = files,
-                City = BO_Dossier.BO_FTTS.ToString()
+                City = city,
+                Year = BO_Dossier.BO_FTTS.ToString()
             };
 
             return View(viewModel);
@@ -104,7 +105,8 @@ namespace VinciEnergiesData.Controllers
             var viewModel0 = new FileViewModel
             {
                 Files = files0,
-                City = BO_Dossier.BO_B2B.ToString(),
+                City = city,
+                Year = BO_Dossier.BO_FTTS.ToString()
             };
             return View(viewModel0);
         }
